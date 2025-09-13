@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ECO - Sistema de diseño para juego de misterio mexicano */
+
+@layer base {
+  :root {
+    /* Colores base - Paleta de misterio mexicano */
+    --background: 218 23% 7%;
+    --foreground: 45 100% 91%;
+
+    --card: 218 23% 10%;
+    --card-foreground: 45 100% 91%;
+
+    --popover: 218 23% 12%;
+    --popover-foreground: 45 100% 91%;
+
+    /* Colores primarios - Oro azteca */
+    --primary: 45 100% 58%;
+    --primary-foreground: 218 23% 7%;
+    --primary-glow: 45 100% 70%;
+
+    /* Colores secundarios - Jade místico */
+    --secondary: 168 76% 42%;
+    --secondary-foreground: 218 23% 7%;
+    --secondary-glow: 168 76% 55%;
+
+    /* Colores de acento - Cobre ancestral */
+    --accent: 25 75% 55%;
+    --accent-foreground: 218 23% 7%;
+
+    /* Estados mutados */
+    --muted: 218 23% 15%;
+    --muted-foreground: 45 20% 65%;
+
+    /* Estados destructivos - Sangre ritual */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 45 100% 91%;
+
+    /* Bordes y inputs */
+    --border: 218 23% 20%;
+    --input: 218 23% 15%;
+    --ring: 45 100% 58%;
+
+    /* Variables específicas del juego */
+    --mystery-shadow: 218 23% 3%;
+    --energy-pulse: 45 100% 58%;
+    --danger-glow: 0 75% 55%;
+    --success-glow: 142 76% 36%;
+
+    /* Gradientes */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-mystery: linear-gradient(180deg, hsl(var(--background)), hsl(var(--mystery-shadow)));
+    --gradient-jade: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
+    
+    /* Sombras */
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-mystery: 0 10px 40px -10px hsl(var(--mystery-shadow) / 0.8);
+    --shadow-elevated: 0 25px 50px -12px hsl(var(--mystery-shadow) / 0.9);
+
+    /* Animaciones */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    background-image: var(--gradient-mystery);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cinzel;
+  }
+}
+
+@layer components {
+  /* Clases de utilidad para el juego */
+  .game-container {
+    @apply min-h-screen flex flex-col bg-gradient-to-b from-background to-mystery-shadow;
+  }
+
+  .mystery-card {
+    @apply bg-card/80 backdrop-blur-md border border-border/50 rounded-xl;
+    box-shadow: var(--shadow-mystery);
+  }
+
+  .glow-effect {
+    @apply relative;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-effect::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl opacity-20 blur-sm;
+    background: var(--gradient-primary);
+    z-index: -1;
+  }
+
+  .pulse-energy {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  .floating-particles {
+    @apply absolute inset-0 pointer-events-none overflow-hidden;
+  }
+
+  .floating-particles::before {
+    content: '';
+    @apply absolute w-1 h-1 bg-primary/30 rounded-full;
+    animation: float-particle 8s ease-in-out infinite;
+  }
+
+  /* Botones del juego */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary-glow;
+    @apply px-8 py-3 rounded-xl font-cinzel font-semibold;
+    @apply transition-all duration-300 transform hover:scale-105;
+    @apply shadow-lg hover:shadow-xl;
+    background: var(--gradient-primary);
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary-glow;
+    @apply px-6 py-2 rounded-lg font-inter font-medium;
+    @apply transition-all duration-300;
+    background: var(--gradient-jade);
+  }
+
+  .btn-ghost {
+    @apply bg-transparent border border-primary/30 text-primary;
+    @apply hover:bg-primary/10 hover:border-primary/60;
+    @apply px-6 py-2 rounded-lg font-inter font-medium;
+    @apply transition-all duration-300;
+  }
+
+  /* SQL Console */
+  .sql-console {
+    @apply bg-muted/50 border border-border/30 rounded-lg p-4;
+    @apply font-mono text-sm backdrop-blur-sm;
+  }
+
+  .sql-syntax {
+    @apply text-primary font-semibold;
+  }
+
+  /* Temporizador */
+  .timer-critical {
+    @apply text-destructive;
+    animation: pulse-danger 1s ease-in-out infinite;
+  }
+
+  .timer-warning {
+    @apply text-accent;
+  }
+
+  .timer-safe {
+    @apply text-secondary;
+  }
+}
+
+@layer utilities {
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-jade {
+    background: var(--gradient-jade);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-mystery-shadow {
+    background-color: hsl(var(--mystery-shadow));
+  }
+}
+
+/* Animaciones personalizadas adicionales */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;  
+}
+
+.animation-delay-900 {
+  animation-delay: 900ms;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  100% {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
+  }
+}
+
+@keyframes pulse-danger {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100vh) rotate(360deg);
+  }
+}
