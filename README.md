@@ -68,4 +68,4 @@ npm run dev
 ```
 ## Ver el juego en la web
 Puede abrir y jugar el juego directamente desde cualquier navegador moderno.  
-Abre el juego en tu navegador usando este enlace seguro: [pendiente](pendiente)
+Abre el juego en tu navegador haciendo click [aquí](https://hack-rush-final-2025.vercel.app/).
